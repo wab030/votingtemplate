@@ -1,5 +1,5 @@
 -- Criar o banco de dados se ele não existir
-DROP DATABASE eleicao;
+DROP DATABASE eleicao IF EXISTS;
 CREATE DATABASE IF NOT EXISTS eleicao;
 USE eleicao;
 
