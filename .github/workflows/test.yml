@@ -134,7 +134,7 @@ jobs:
         if: always()
         run: |
           echo "## 🧹 Análise de Estilo do Código (ESLint)" >> relatorio-final.md
-          npx eslint src/**/*.js 2>&1 | tee -a >> relatorio-final.md
+          npx eslint src/**/*.js && echo '✅ Lint concluído: Nenhum erro encontrado!' 2>&1 | tee -a >> relatorio-final.md
 
       - name: Análise de Código com IA (Gemini)
         # Este passo agora funcionará porque o workflow roda com acesso total aos Secrets
