@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../src/app');
-const db = require('../db'); // Usar a conexão real do DB
+const db = require('../src/db'); // Usar a conexão real do DB
 
 const TEST_EMAIL = 'teste.supertest@votacao.com';
 
