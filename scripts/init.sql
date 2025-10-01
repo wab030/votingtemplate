@@ -31,4 +31,4 @@ INSERT INTO votantes (email) VALUES
 ('ana@example.com')
 ON DUPLICATE KEY UPDATE email=email; -- Apenas para evitar erro se já existirem
 
-GRANT ALL PRIVILEGES ON cadastro.* TO 'admin'@'%';
+GRANT ALL PRIVILEGES ON eleicao.* TO 'admin'@'%';
