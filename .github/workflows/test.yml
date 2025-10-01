@@ -128,7 +128,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_USER: admin
           DB_PASSWORD: ifsp@1234
-          DB_NAME: cadastro
+          DB_NAME: eleicao
 
       - name: Rodar ESLint e adicionar ao relatório
         if: always()
