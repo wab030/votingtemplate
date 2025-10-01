@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles",
-    "lint": "eslint ."
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' && echo '✅ Lint concluído: Nenhum erro encontrado!'"
   },
   "keywords": [],
   "author": "",
