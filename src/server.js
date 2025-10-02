@@ -1,7 +1,9 @@
-const app = require('./app'); // Importa a aplicação Express
-const PORT = 5000; // Define a porta obrigatória
+const app = require('./app');
+require('dotenv').config();
 
-// Inicia o servidor na porta 5000
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Acesse    -----: http://localhost:${PORT}`);
 });

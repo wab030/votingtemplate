@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sistema de Votação - Eleição Escolar</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 30px;
+        background-color: #eef1f5;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: 900px;
+        width: 100%;
+        margin: 20px auto;
+        padding: 30px;
+        border-radius: 15px;
+        background-color: #fff;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #0056b3;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      h2 {
+        color: #343a40;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+      }
+
+      /* Estilos do Formulário */
+      .vote-form {
+        border: 2px solid #0056b3;
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        background-color: #f8f9fa;
+      }
+      .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+      }
+      input[type='email'] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+
+      /* Estilos das Rotas */
+      .routes-section {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        margin-top: 30px;
+      }
+      .routes-api,
+      .routes-nav {
+        flex: 1;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .routes-api {
+        background-color: #f1f1f1;
+      }
+      .routes-nav {
+        background-color: #d1ecf1;
+        border: 1px solid #bee5eb;
+      }
+      .routes-api pre {
+        background: #e2e2e2;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 0.9em;
+      }
+      .routes-nav ul {
+        list-style: none;
+        padding: 0;
+      }
+      .routes-nav li {
+        margin-bottom: 10px;
+      }
+      .routes-nav a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+      }
+      .routes-nav a:hover {
+        text-decoration: underline;
+        color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Plataforma de Votação Escolar</h1>
+      <p>Preencha os campos abaixo para registrar seu voto.</p>
+
+      <div class="vote-form">
+        <h2>Votar Agora</h2>
+        <form action="/eleicao/votar" method="POST">
+          <div class="form-group">
+            <label for="email">Seu E-mail de Votante:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="exemplo@escola.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="id">Selecione o Candidato:</label>
+            <select id="id" name="id" required>
+              <option value="" disabled selected>
+                --- Escolha um candidato ---
+              </option>
+              <% candidatos.forEach(candidato => { %>
+              <option value="<%= candidato.id %>">
+                <%= candidato.nome_candidato %> <%= candidato.id %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
+
+          <button type="submit">Confirmar Voto</button>
+        </form>
+      </div>
+
+      <h2>Links Úteis e Endpoints da API</h2>
+      <div class="routes-section">
+        <div class="routes-nav">
+          <h3>Navegação (Views EJS)</h3>
+          <ul>
+            <li>
+              <a href="/eleicao/lider">Ver Líder Atual da Eleição (View)</a>
+            </li>
+          </ul>
+          <p>Use o formulário acima para votar e ver a View de Confirmação.</p>
+        </div>
+
+        <div class="routes-api">
+          <h3>Endpoints da API (Retorna JSON)</h3>
+
+          <p><strong>Listar Candidatos e Votos (GET)</strong></p>
+          <pre>/eleicao/candidatos</pre>
+        </div>
+      </div>
+
+      <p style="margin-top: 40px; font-size: 0.9em; color: #888">
+        Lembre-se: Cada e-mail só pode votar uma única vez.
+      </p>
+    </div>
+  </body>
+</html>
