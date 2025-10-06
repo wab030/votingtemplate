@@ -1,34 +1,53 @@
--- Criar o banco de dados se ele não existir
-DROP DATABASE IF EXISTS eleicao;
-CREATE DATABASE IF NOT EXISTS eleicao;
-USE eleicao;
+-- init.sql
+-- Script para a criação e inicialização do banco de dados da Avaliação de Desenvolvimento Web 2 (Farmácia Pública).
 
--- Tabela de candidatos
-CREATE TABLE IF NOT EXISTS candidatos (
+-- -----------------------------------------------------
+-- 1. DROP E CRIAÇÃO DO BANCO DE DADOS
+-- -----------------------------------------------------
+-- **COMANDO ADICIONADO:** Apaga o banco de dados 'saude' se ele já existir, garantindo um ambiente limpo.
+DROP DATABASE IF EXISTS saude;
+
+-- Cria o banco de dados 'saude' e o seleciona para uso.
+CREATE DATABASE saude CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE saude;
+
+-- -----------------------------------------------------
+-- 2. CRIAÇÃO DA TABELA MEDICAMENTOS
+-- -----------------------------------------------------
+-- Armazena o cadastro dos medicamentos e a quantidade em estoque.
+CREATE TABLE medicamentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome_candidato VARCHAR(255) NOT NULL,
-    numero_candidato INT NOT NULL UNIQUE, -- Adicionado UNIQUE para id_candidato ser chave de identificação
-    votos INT DEFAULT 0
+    nome_medicamento VARCHAR(255) NOT NULL,
+    quantidade INT NOT NULL DEFAULT 0
 );
 
--- Tabela de votantes
-CREATE TABLE IF NOT EXISTS votantes (
+-- -----------------------------------------------------
+-- 3. CRIAÇÃO DA TABELA RETIRADAS
+-- -----------------------------------------------------
+-- Registra quem (e-mail) retirou qual medicamento para evitar duplicidade.
+CREATE TABLE retiradas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE
+    email_municipe VARCHAR(255) NOT NULL COMMENT 'E-mail do munícipe que retirou o medicamento (chave para evitar duplicidade)',
+    medicamento_id INT NOT NULL,
+    data_retirada DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Chave estrangeira
+    FOREIGN KEY (medicamento_id) REFERENCES medicamentos(id),
+    
+    -- Restrição UNIQUE para a retirada duplicada (quem pegou o quê)
+    UNIQUE INDEX idx_unica_retirada (email_municipe, medicamento_id)
 );
 
--- Inserção de dados iniciais dos candidatos
-INSERT INTO candidatos (nome_candidato, numero_candidato, votos) VALUES
-('Maria Silva', 1, 0),
-('João Santos', 2, 0),
-('Ana Oliveira', 3, 0)
-ON DUPLICATE KEY UPDATE nome_candidato=VALUES(nome_candidato);
+-- -----------------------------------------------------
+-- 4. INCLUSÃO DE DADOS INICIAIS
+-- -----------------------------------------------------
+-- Dados de teste para iniciar o estoque.
+INSERT INTO medicamentos (nome_medicamento, quantidade) VALUES
+('Paracetamol 500mg', 15),
+('Dipirona 1g', 5),
+('Amoxicilina 500mg', 2),
+('Ibuprofeno 600mg', 1);
 
--- Inserção de dados iniciais de votantes (opcional para testes, mas manter como no requisito)
-INSERT INTO votantes (email) VALUES
-('joao@example.com'),
-('maria@example.com'),
-('ana@example.com')
-ON DUPLICATE KEY UPDATE email=email; -- Apenas para evitar erro se já existirem
-
-GRANT ALL PRIVILEGES ON eleicao.* TO 'admin'@'%';
+-- -----------------------------------------------------
+-- FIM DO SCRIPT DE INICIALIZAÇÃO
+-- -----------------------------------------------------
