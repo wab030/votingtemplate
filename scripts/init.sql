@@ -51,4 +51,4 @@ INSERT INTO medicamentos (nome_medicamento, quantidade) VALUES
 -- -----------------------------------------------------
 -- FIM DO SCRIPT DE INICIALIZAÇÃO
 -- -----------------------------------------------------
-GRANT ALL PRIVILEGES ON cadastro.* TO 'admin'@'%';
+GRANT ALL PRIVILEGES ON saude.* TO 'admin'@'%';
