@@ -48,7 +48,13 @@ INSERT INTO medicamentos (nome_medicamento, quantidade) VALUES
 ('Amoxicilina 500mg', 2),
 ('Ibuprofeno 600mg', 1);
 
+-- 5. CRIAÇÃO E CONCESSÃO DE PRIVILÉGIOS PARA O USUÁRIO 'admin'
+-- Isso garante que o usuário de teste exista, independentemente das variáveis de ambiente do Docker.
+DROP USER IF EXISTS 'admin'@'%'; -- Limpa qualquer resquício
+CREATE USER 'admin'@'%' IDENTIFIED BY 'ifsp@1234'; -- Cria o usuário com a senha do pipeline (test.yml)
+GRANT ALL PRIVILEGES ON saude.* TO 'admin'@'%'; -- Concede privilégios no banco 'saude'
+FLUSH PRIVILEGES; -- Aplica as mudanças imediatamente
+
 -- -----------------------------------------------------
 -- FIM DO SCRIPT DE INICIALIZAÇÃO
 -- -----------------------------------------------------
-GRANT ALL PRIVILEGES ON saude.* TO 'admin'@'%';
