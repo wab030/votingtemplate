@@ -17,7 +17,7 @@ app.use('/', webRoutes);
 
 // --- 5. Tratamento de Erros: Rota Não Encontrada (404) ---
 app.use((req, res) => {
-    res.status(404).send('<h1>404: Rota Não Encontrada</h1><p>A rota solicitada não existe.</p>');
+    res.status(404).send('<h1>404: Rot      a Não Encontrada</h1><p>A rota solicitada não existe.</p>');
 });
 
 // Exporta a instância do Express para ser usada pelo server.js e pelos testes
