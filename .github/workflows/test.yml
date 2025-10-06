@@ -123,13 +123,16 @@ jobs:
       - name: Rodar testes e adicionar ao relatório
         run: |
           echo "## 🧪 Resultado dos Testes Unitários" >> relatorio-final.md
-          npm test -- --colors=false 2>&1 | tee -a >> relatorio-final.md
+          # O comando 'tee' direciona o output para o console E para o arquivo.
+          # 2>&1 combina stderr e stdout para que o 'tee' capture tudo.
+          npm test -- --colors=false 2>&1 | tee -a relatorio-final.md
         env:
+          # ATENÇÃO: Verifique se o DB_NAME é 'saude' e não 'eleicao'
           DB_HOST: 127.0.0.1
           DB_USER: admin
           DB_PASSWORD: ifsp@1234
-          DB_NAME: eleicao
-
+          DB_NAME: saude # Corrigido de 'eleicao' para 'saude' (baseado no init.sql)
+          
       - name: Rodar ESLint e adicionar ao relatório
         if: always()
         run: |
