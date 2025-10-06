@@ -1,10 +1,24 @@
+// app.js (NOVO ARQUIVO)
 const express = require('express');
+const path = require('path');
+const webRoutes = require('./routes/routes');
+
 const app = express();
 
-// Aqui você deve desenvolver toda a configuração do seu app. 
+// Configuração do EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-//ATENÇÂO NÃO COLOQUE O COMANDO app.listen nesse arquivo. Ele já está no server, que é o arquivo principal da sua aplicação. 
+// Middleware para processar dados de formulário (POST)
+app.use(express.urlencoded({ extended: true }));
 
-// Para iniciar sua aplicação digite nodemon server.js
+// Uso das Rotas
+app.use('/', webRoutes);
 
+// --- 5. Tratamento de Erros: Rota Não Encontrada (404) ---
+app.use((req, res) => {
+    res.status(404).send('<h1>404: Rota Não Encontrada</h1><p>A rota solicitada não existe.</p>');
+});
+
+// Exporta a instância do Express para ser usada pelo server.js e pelos testes
 module.exports = app;
