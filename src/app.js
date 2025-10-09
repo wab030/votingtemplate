@@ -1,10 +1,16 @@
 const express = require('express');
+const path = require('path');
 const app = express();
+const medicamentoController = require('./controllers/medicamentoController');
 
-// Aqui você deve desenvolver toda a configuração do seu app. 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-//ATENÇÂO NÃO COLOQUE O COMANDO app.listen nesse arquivo. Ele já está no server, que é o arquivo principal da sua aplicação. 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-// Para iniciar sua aplicação digite nodemon server.js
+app.get('/', medicamentoController.home);
+app.get('/estoque-baixo', medicamentoController.estoqueBaixo);
+app.post('/retirada', medicamentoController.retirada);
 
 module.exports = app;
