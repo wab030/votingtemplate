@@ -23,18 +23,20 @@ module.exports.farmacia = (req, res) => {
 }
 
 
-module.exports.estoqueBaixo = (req,res)=>{
+module.exports.estoqueBaixo = (req, res) => {
 
 
-    farmaciaModel.getEstoqueBaixo(dbConn , (err,result)=>{
+    farmaciaModel.getEstoqueBaixo(dbConn, (err, result) => {
 
-                if (err) {
+        if (err) {
 
             return res.status(500).send("Erro ao recarregar os medicamentos");
 
         } else {
 
-            return res.render('farmacia.ejs', { medicamentos: result });
+            res.render('farmacia', {
+                medicamentos: { medicamentos: result }, mensagem: null, erro: null, filtro: 'ESTOQUE BAIXO'
+            })
         }
 
     })
