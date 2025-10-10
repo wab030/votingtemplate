@@ -1,5 +1,4 @@
 const dbconn = require('../../config/dbConnection');
-const { addFarmacia, getFarmaciaModel, getFarmaciaById } = require('./models');
 const { 
 getfarmacia,
 addFarmacia,
@@ -87,4 +86,5 @@ module.exports.updateFarmacia = (app, req, res) => {
             return res.send('Erro ao atualizar medicamento');
         }
         res.redirect('/showFarmacia?idobra=' + id);
+
     });
