@@ -13,5 +13,7 @@ app.set('views', '../src/views');
 app.use(express.static('../src/public'));
 
 routes.home(app);
+routes.retirada(app);
+routes.estoquebaixo(app);
 
 module.exports = app;

@@ -1,7 +1,10 @@
 const dbConnection = require('../db');
 const Joi = require('joi');
 const { getProdutos } = require('../model/homeModel');
+const { updateProduto } = require('../model/homeModel');
+const { getEstoqueBaixo } = require('../model/homeModel');
 const homeModel = require('../model/homeModel');
+const { get } = require('../app');
 
 
 module.exports.home = (app, req, res) => {
@@ -38,4 +41,12 @@ module.exports.retirada = (app, req, res) => {
     
     res.render('retirada', { mensagem: 'Retirada de produto realizada com sucesso!', erro: null });
 
+}
+
+module.exports.estoquebaixo = (app, req, res) => {
+    console.log('[Controller Estoque Baixo]');
+
+    getEstoqueBaixo(dbConnection, (error, result) => {
+        res.render('farmacia.ejs', { medicamentos: result, mensagem: null, erro: null, filtro: 'ESTOQUE BAIXO' });
+    });
 }

@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const { home } = require('../controller/homeController');
 const { retirada } = require('../model/homeModel');
+const { estoquebaixo } = require('../controller/homeController');
 
 const schema = Joi.object({
     idMedicamento: Joi.number().integer().positive().required().messages({'number.base': 'O ID do medicamento deve ser um número.', 
@@ -33,7 +34,12 @@ module.exports = {
             retirada(app, req, res);
         });
 
-    }
+    },
 
+    estoquebaixo: (app) => {
+        app.get('/estoque-baixo', (req, res) => {
+            estoquebaixo(app, req, res);
+        });
+    }
     
 }
