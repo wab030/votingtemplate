@@ -17,4 +17,4 @@ const routes = require('./routes/routes');
 routes.farmacia(app);
 routes.estoquebaixo(app);
 
-module.exports = app;//qweqwe
+module.exports = app;
