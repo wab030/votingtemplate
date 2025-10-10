@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
+const routes = require("./routes/routes");
 
-// Aqui você deve desenvolver toda a configuração do seu app. 
+app.use(express.json());
+app.set('view engine', 'ejs');
+app.set('views', './views');
+app.use(express.urlencoded({ extended: true }));
 
-//ATENÇÂO NÃO COLOQUE O COMANDO app.listen nesse arquivo. Ele já está no server, que é o arquivo principal da sua aplicação. 
+routes.homefarmacia(app);
+routes.getmedicamento(app);
 
-// Para iniciar sua aplicação digite nodemon server.js
 
 module.exports = app;
