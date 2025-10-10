@@ -9,8 +9,7 @@ app.use(express.static('./public'));
 
 routes.farmacia(app);
 routes.estoquebaixo(app);
+routes.retirada(app);
 
-// Para iniciar sua aplicação digite nodemon server.js
-console.log('Hello Word Prova WEB 2')
 
 module.exports = app;
