@@ -7,9 +7,8 @@ module.exports = {
 
     updateProduto: (dbConnection, idMedicamento, quantidade, callback) => {
         console.log('[Model Retirada]');
-        const sql = 'UPDATE saude.medicamentos SET quantidade = quantidade - 1 WHERE idMedicamento = ?';
-        const params = [quantidade, idMedicamento];
-        dbConnection.query(sql, params, callback);
+        const sql = 'UPDATE saude.medicamentos SET quantidade = quantidade - 1 WHERE id = ?';
+        dbConnection.query(sql, [idMedicamento], callback);
     },
 
     getEstoqueBaixo: (dbConnection, callback) => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = require('./routes/routes');
 const app = express();
+const bodyParser = require('body-parser');
 
 // Aqui você deve desenvolver toda a configuração do seu app. 
 
@@ -11,6 +12,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', '../src/views');
 app.use(express.static('../src/public'));
+app.use(express.urlencoded({ extended: true }));
 
 routes.home(app);
 routes.retirada(app);

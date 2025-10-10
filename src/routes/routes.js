@@ -18,7 +18,8 @@ const validateProduto = (req, res, next) => {
 
     const { error } = schema.validate(req.body);
     if (error) {
-        return res.render('farmacia.ejs', { mensagem: null, erro: error.details[0].message, filtro: null });
+        return res.render('farmacia.ejs', { errors: error.details[0].message, medicamento: req.body, filtro: null, mensagem: null, meicamentos: [] });
+         
     }
 }
 

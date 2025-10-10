@@ -11,7 +11,7 @@ module.exports.home = (app, req, res) => {
     console.log('[Controller Home]');
 
     getProdutos(dbConnection, (error, result) => {
-        res.render('farmacia', { medicamentos: result, mensagem: null, erro: null, filtro: null })
+        res.render('farmacia.ejs', { medicamentos: result, mensagem: null, erro: null, filtro: null })
 
         
     }); 
@@ -20,26 +20,22 @@ module.exports.home = (app, req, res) => {
 module.exports.retirada = (app, req, res) => {
     console.log('[Controller Retirada]');
 
-    const {  idMedicamento, email } = req.body;
-
-    const { error } = schema.validate(idMedicamento, email);
-    if (error) {
-        const mensagemErro = error.details.map(detail => detail.message).join(', ');
-
-        console.error('Erro de validação:', mensagemErro);
-
-        return res.render('retirada', { mensagem: `Erro de validação: $(mensagemErro)`, erro: true });
+    const idMedicamento = req.body.idMedicamento;
+    const email = req.body.email;
+    const updateData = {
+        id: req.body.idMedicamento,
+        email: req.body.email
     }
 
-    homeModel.restirada(dbConnection, idMedicamento, 1, (error, result) => {
+    updateProduto(idMedicamento, updateData, dbConnection, (error, result) => {
         if (error) {
-            console.error('Erro ao processar a retirada:', error);
-            return res.render('retirada', { mensagem: 'Erro ao processar a retirada.', erro: true });
+            console.error('Erro ao atualizar o produto:', error);
+            const erromsg = 'Erro ao atualizar o produto.';
+            return erromsg;
         }
+        const sucessmsg = 'Retirada realizada com sucesso!';
+        return res.status(200).redirect('/?mensagem=${encodeURIComponent(sucessmsg}');
     });
-    
-    
-    res.render('retirada', { mensagem: 'Retirada de produto realizada com sucesso!', erro: null });
 
 }
 
