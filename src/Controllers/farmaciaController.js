@@ -13,7 +13,7 @@ module.exports.farmacia = (req, res) => {
             return res.status(500).send("Erro ao recarregar as obras");
         } else {
 
-            return res.render("farmacia.ejs", { remedios: result });
+            res.render('farmacia', { medicamentos: result, mensagem: null, erro: null, filtro: null })
 
         }
 
@@ -22,9 +22,7 @@ module.exports.farmacia = (req, res) => {
 
 }
 
-
 module.exports.estoqueBaixo = (req, res) => {
-
 
     farmaciaModel.getEstoqueBaixo(dbConn, (err, result) => {
 
@@ -34,9 +32,9 @@ module.exports.estoqueBaixo = (req, res) => {
 
         } else {
 
-            res.render('farmacia', {
-                medicamentos: { medicamentos: result }, mensagem: null, erro: null, filtro: 'ESTOQUE BAIXO'
-            })
+            res.render('farmacia', {medicamentos: result, mensagem: null, erro: null, filtro: 'ESTOQUE BAIXO'})
+        
+        
         }
 
     })

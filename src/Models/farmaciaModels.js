@@ -19,7 +19,6 @@ module.exports = {
 
     },
 
-
     getMedicamentos: (db, callback) => {
 
         const sql = 'SELECT * FROM medicamentos';
@@ -27,15 +26,7 @@ module.exports = {
         db.query(sql, callback);
 
     },
-
-    retirarMedicamento: (db, dados, callback) => {
-
-        const sql = 'INSERT INTO retiradas (id , email_municipe, medicamento_id, data_retirada)';
-        const valores = [dados.id, dados.email_municipe, dados.medicamento_id, dados.data_retirada]
-        db.query(sql, valores, callback);
-
-    },
-        getEstoqueBaixo: (db, callback) => {
+    getEstoqueBaixo: (db, callback) => {
 
         const sql = 'SELECT * FROM medicamentos WHERE quantidade < 3';
 
@@ -43,10 +34,13 @@ module.exports = {
 
     },
 
+    retirarMedicamento: (db, dados, callback) => {
 
+        const sql = 'INSERT INTO retiradas (id , email_municipe) VALUES(?,?)';
+        const valores = [dados.id, dados.email_municipe]
+        db.query(sql, valores, callback);
 
-
-
+    }
 
 
 

@@ -5,18 +5,19 @@ const farmaciaModel = require('../Models/farmaciaModels');
 
 module.exports =  {
 
-
-
     farmacia: (app) => {
 
-        app.get('/', (req, res) => {
-            res.render('farmacia', {
-                medicamentos: {}, mensagem: null,
-                erro: null, filtro: null
-            })
+        app.get('/',farmaciaController.farmacia);
 
-        });
+    },
 
+        estoqueBaixo : (app) =>{
+
+        app.get('/estoque-baixo',(req,res)=>{
+
+            farmaciaController.estoqueBaixo(req,res);
+
+        })
     },
 
     retirarMedicamento : (app) =>{
@@ -32,15 +33,6 @@ module.exports =  {
 
                 farmaciaController.retiradaMedicamento(req,res);
             }
-        })
-    },
-
-    estoqueBaixo : (app) =>{
-
-        app.get('/estoque-baixo',(req,res)=>{
-
-            farmaciaController.estoqueBaixo(req,res);
-
         })
     }
 
